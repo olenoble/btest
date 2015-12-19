@@ -6,7 +6,7 @@ import basket
 import weight
 
 
-from dateutil import parsear
+from dateutil import parser
 from datetime import timedelta
 import pandas as pd
 
