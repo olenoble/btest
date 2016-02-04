@@ -1,0 +1,39 @@
+##### Basic object
+underlying object:
+	-) Members
+		*) time_series = pandas.time_series
+		*) name = 'SPX'
+		*) currency = 'USD'
+		*) expiry = None or date
+		*) attribute = additional info (dictionary) - can be expanded by user, 
+				e.g. {'asset_class': 'equity_index',
+				      'industry': None,
+					  'sector': None}
+	-) Functions:
+		*) retrieve_data(source = ...)
+		*) convert_to_fx(fx = ...)  ## will update currency member
+
+###### Strategy object
+strategy object
+	*) Members
+		-) input (dictionary)
+			~) 'strategy_name': 'rotator_leg_1'
+			~) 'underlying': can be an underlying object or string or array of string/underlying
+							  strings are converted to underlying objects
+			~) 'calendar': 'common_dates' / 'all_dates' / calendar object
+			~) 'signal': None or function from signal toolbox 
+			~) 'event': None or {'event_function': ....,
+								 'min_days_between_rebal': 4}, or array of dictonary. 
+								 Function allways return a boolean (signalling a rebalancing event)
+								 event is triggered if combination of events (and / or) 
+			~) 'rebalancing_dates': None (if no rebalancing or event-driven) or list of dates or calendar object
+			~) 'weight_allocation': None or user function or function from weight allocation toolbox (e.g. equal weight, vol parity, etc...) 
+			~) 'vol_control': None or {}
+		-) output (dictionary)
+			~) 'index': pandas.time_series
+			~) 'index_volcontrol': pandas.time_series
+	*) Functions
+		-) run: run / update data 
+
+
+underlying and strategy must have a .get_timeseries function to retrieve time series / index output
